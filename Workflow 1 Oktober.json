@@ -1,0 +1,115 @@
+{
+  "name": "Workflow 1 Oktober",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Anda adalah ai agent bot dari sebuat toko online. layani pelanggan dengan ramah dan jika bertanya tentang produk, jawab degan silahkan mengunjungi website toko."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        176,
+        -112
+      ],
+      "id": "d01721b6-adf5-4b75-9001-1299ec1d855d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        96
+      ],
+      "id": "94c1d940-6827-42e9-8e5d-1156e8c5758a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -32,
+        -112
+      ],
+      "id": "d18a2d56-86f1-48da-aae0-4e9eace6212b",
+      "name": "When chat message received",
+      "webhookId": "b3fad02e-cb20-4910-9f11-6210a65e3ed5"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        272,
+        224
+      ],
+      "id": "4dfeb51b-30db-40a5-a71d-59e907145a01",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b7c73b0d-9e5e-4a07-af64-242a9a3e74ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7a293bf96b74234c5c49430b64e2b7816cc6ad1678c913d8c5d4c31352746b93"
+  },
+  "nodeGroups": [],
+  "id": "eTggmPzxWwJeC8Jw",
+  "tags": []
+}
